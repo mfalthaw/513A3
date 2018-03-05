@@ -213,7 +213,7 @@
 <body>
   <div class='container'>
     <h1>Vue Messenger App</h1>
-    <div class='chatbox' id="app">
+    <div class='chatbox' id='app'>
       <div class='chatbox__user-list'>
         <h1>Friends Online</h1>
         <div class='chatbox__user--active'>
@@ -235,9 +235,9 @@
       <div class="chatbox__messages">
         <div class="chatbox__messages__user-message">
           <div class="chatbox__messages__user-message--ind-message">
-            <p class="name">{{message.Name}}</p>
+            <p class="name"></p>
             <br/>
-            <p class="message">{{message.Message}}</p>
+            <p class="message"></p>
           </div>
         </div>
       </div>
@@ -252,7 +252,7 @@
     <!-- Socket.io -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
-    <!-- Moath -->
+    <!-- Client -->
     <script>
       var socket = io();
       new Vue({
