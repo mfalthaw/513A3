@@ -257,7 +257,7 @@
         },
         methods:{
           sendMessage: function () {
-            socket.emit('newMessage', this.messageText);
+            socket.emit('newMessage', this.messageText, this.group);
             this.messageText = "";
           },
           joinGroup: function (groupName) {
