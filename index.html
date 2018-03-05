@@ -269,6 +269,7 @@
         methods:{
           sendMessage: function () {
             socket.emit('newMessage', this.messageText);
+            this.messageText = "";
           }
         }
       });
