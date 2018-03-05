@@ -219,6 +219,9 @@
         <div class='chatbox__user--active' @click="joinGroup('Public')">
           <p>Public</p>
         </div>
+        <div class='chatbox__user--active' @click="joinGroup('Private')">
+          <p>Private</p>
+        </div>
       </div>
       <div class="chatbox__messages">
         <div class="chatbox__messages__user-message" v-for="message in messages">
@@ -258,9 +261,14 @@
         methods:{
           sendMessage: function () {
             socket.emit('newMessage', this.messageText, this.group);
+            this.messages.push(this.messageText);
             this.messageText = "";
           },
           joinGroup: function (groupName) {
+            this.messages = [];
+            if(this.group !== '') {
+              socket.emit('exitGroup', this.group)
+            }
             socket.emit('joinGroup', groupName);
             this.group = groupName;
           },

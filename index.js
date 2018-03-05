@@ -11,19 +11,26 @@ app.get('/', function(request, response) {
 socketIo.on('connection', function(socket) {
   console.log('New user connected...');
 
-  // newMessage event
-  socket.on('newMessage', function (data, group) {
+  // newMessage
+  socket.on('newMessage', function (msg, group) {
     // Grab message from client
-    console.log('New Message: ' + data);
+    console.log('New Message: ' + msg);
     // Emit message to all users
-    socket.to(group).emit('clientMessage', data);
+    socket.to(group).emit('clientMessage', msg);
   });
 
-  // joinGroup event
-  socket.on('joinGroup', function (data) {
+  // joinGroup
+  socket.on('joinGroup', function (groupName) {
     // Grab group name from client
-    console.log('User joined new group: ' + data);
-    socket.join(data);
+    console.log('User joined new group: ' + groupName);
+    socket.join(groupName);
+  });
+
+  // exitGroup
+  socket.on('exitGroup', function (groupName) {
+    // Grab group name from client
+    console.log('User left group: ' + groupName);
+    socket.leave(groupName);
   });
 })
 
