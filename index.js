@@ -11,4 +11,7 @@ app.get('/', function(request, response) {
 
 socketIo.on('connection', function(socket) {
   console.log('New user connected...');
+  socket.on('newMessage', function (data) {
+    console.log('New Message: ' + data);
+  });
 })
