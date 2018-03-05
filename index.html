@@ -211,25 +211,13 @@
 </head>
 
 <body>
-  <div class='container'>
-    <h1>Vue Messenger App</h1>
-    <div class='chatbox' id='app'>
+  <div class='container' id='app'>
+    <h1>{{group == '' ? 'Vue Messenger' : group}}</h1>
+    <div class='chatbox'>
       <div class='chatbox__user-list'>
-        <h1>Friends Online</h1>
-        <div class='chatbox__user--active'>
-          <p>Maelyn Pepe</p>
-        </div>
-        <div class='chatbox__user--busy'>
-          <p>Michelle Pepe</p>
-        </div>
-        <div class='chatbox__user--active'>
-          <p>Amy Angular</p>
-        </div>
-        <div class='chatbox__user--active'>
-          <p>Jack Uniden</p>
-        </div>
-        <div class='chatbox__user--away'>
-          <p>Ben Marcus</p>
+        <h1>Groups</h1>
+        <div class='chatbox__user--active' @click="joinGroup('Public')">
+          <p>Public</p>
         </div>
       </div>
       <div class="chatbox__messages">
@@ -260,6 +248,7 @@
         data:{
           messageText:'',
           messages:[],
+          group:'',
         },
         mounted:function () {
           socket.on('clientMessage', function(data) {
@@ -270,7 +259,11 @@
           sendMessage: function () {
             socket.emit('newMessage', this.messageText);
             this.messageText = "";
-          }
+          },
+          joinGroup: function (groupName) {
+            socket.emit('joinGroup', groupName);
+            this.group = groupName;
+          },
         }
       });
     </script>
