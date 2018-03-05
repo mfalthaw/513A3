@@ -8,10 +8,13 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 });
 
-// Grab message from client
 socketIo.on('connection', function(socket) {
   console.log('New user connected...');
   socket.on('newMessage', function (data) {
+    // Grab message from client
     console.log('New Message: ' + data);
+    // Emit message to all users
+    socket.emit('clientMessage', data);
   });
 })
+

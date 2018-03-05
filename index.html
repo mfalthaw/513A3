@@ -233,11 +233,11 @@
         </div>
       </div>
       <div class="chatbox__messages">
-        <div class="chatbox__messages__user-message">
+        <div class="chatbox__messages__user-message" v-for="message in messages">
           <div class="chatbox__messages__user-message--ind-message">
-            <p class="name"></p>
+            <p class="name">Moath</p>
             <br/>
-            <p class="message"></p>
+            <p class="message">{{message}}</p>
           </div>
         </div>
       </div>
@@ -258,7 +258,13 @@
       new Vue({
         el: "#app",
         data:{
-          messageText:''
+          messageText:'',
+          messages:[],
+        },
+        mounted:function () {
+          socket.on('clientMessage', function(data) {
+            this.messages.push(data);
+          }.bind(this));
         },
         methods:{
           sendMessage: function () {
