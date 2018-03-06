@@ -216,11 +216,12 @@
     <div class='chatbox'>
       <div class='chatbox__user-list'>
         <h1>Groups</h1>
-        <div class='chatbox__user--active' @click="joinGroup('Public')">
+        <div class='chatbox__user--active'>          
           <p>Public</p>
         </div>
-        <div class='chatbox__user--active' @click="joinGroup('Private')">
-          <p>Private</p>
+        <h1>Users</h1>
+        <div class='chatbox__user--active'>          
+          <p>Moath</p>
         </div>
       </div>
       <div class="chatbox__messages">
@@ -248,17 +249,18 @@
       var socket = io();
       new Vue({
         el: "#app",
-        data:{
+        data: {
           messageText:'',
           messages:[],
           group:'',
         },
-        mounted:function () {
+        mounted: function () {
+          this.joinGroup('Public');
           socket.on('clientMessage', function(data) {
             this.messages.push(data);
           }.bind(this));
         },
-        methods:{
+        methods: {
           sendMessage: function () {
             socket.emit('newMessage', this.messageText, this.group);
             this.messages.push(this.messageText);
