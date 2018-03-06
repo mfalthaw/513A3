@@ -17,6 +17,7 @@ socketIo.on('connection', function(socket) {
     console.log('New Message: ' + msg);
     // Emit message to all users
     socket.to(group).emit('clientMessage', {
+      type: "text",
       username: username, 
       message: msg,
     });

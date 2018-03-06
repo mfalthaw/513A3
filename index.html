@@ -273,10 +273,11 @@
         methods: {
           sendMessage: function () {
             socket.emit('newMessage', this.messageText, this.group, this.username);
-            this.messages.push({
+            var msg = {
               username: this.username, 
               message: this.messageText
-            });
+            };
+            this.messages.push(msg);
             this.messageText = "";
           },
           joinGroup: function (groupName) {
