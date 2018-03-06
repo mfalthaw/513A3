@@ -17,12 +17,13 @@ io.on('connection', function(socket) {
   console.log('New user connected');
 
   // initUser
-  socket.on('initUser', function (username) {
-    console.log('got it');
-    // usersList[username] = username;
-    // socket.username = username;
-    // io.emit('usersList', usersList);
-    // io.emit('onlineUsers', socket.conn.server.clientsCount);
+  socket.on('initUser', function () {
+    var username = getUsername();
+    usersList[username] = username;
+    socket.username = username;
+    io.emit('usersList', usersList);
+    io.emit('onlineUsers', socket.conn.server.clientsCount);
+    console.log(username);
   });
 
   // newMessage
@@ -64,4 +65,9 @@ io.on('connection', function(socket) {
 // return current time
 function getTime() {
   return new Date().toLocaleTimeString();
+}
+
+// return random username
+function getUsername() {
+  return 'user' + Math.floor((Math.random() * 1000) + 1);
 }

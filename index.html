@@ -242,7 +242,9 @@
     <!-- Client -->
     <script>
       var socket = io();
+
       socket.emit('initUser');
+      
       new Vue({
         el: "#app",
         data: {
