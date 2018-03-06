@@ -26,7 +26,7 @@ io.on('connection', function(socket) {
   // newMessage
   socket.on('newMessage', function (msg, group, username) {
     // Grab message from client
-    console.log('New Message: ' + msg);
+    console.log(username + ' sent: ' + msg);
     // Emit message to all users
     socket.to(group).emit('clientMessage', {
       type: "text",
