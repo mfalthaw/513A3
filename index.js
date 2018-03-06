@@ -16,13 +16,13 @@ var usersList = {};
 io.on('connection', function(socket) {
   console.log('New user connected');
 
-  // loginUser
-  socket.on('loginUser', function (username) {
-    console.log(username + ' logged in');
-    usersList[username] = username;
-    socket.username = username;
-    io.emit('usersList', usersList);
-    io.emit('onlineUsers', socket.conn.server.clientsCount);
+  // initUser
+  socket.on('initUser', function (username) {
+    console.log('got it');
+    // usersList[username] = username;
+    // socket.username = username;
+    // io.emit('usersList', usersList);
+    // io.emit('onlineUsers', socket.conn.server.clientsCount);
   });
 
   // newMessage
