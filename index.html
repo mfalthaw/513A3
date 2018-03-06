@@ -213,7 +213,6 @@
 <body>
   <div class='container' id='app'>
     <h1>{{group == '' ? 'Vue Messenger' : group}}</h1>
-    
     <form v-if="!showChat" @submit.prevent="loginUser()">
       <input type="text" v-model="username" placeholder="Enter Username">
       <button type="submit">Login</button>
@@ -237,9 +236,9 @@
       <div class="chatbox__messages">
         <div class="chatbox__messages__user-message" v-for="message in messages">
           <div class="chatbox__messages__user-message--ind-message">
-            <p class="name">Moath</p>
+            <p class="name">{{message.username}}</p>
             <br/>
-            <p class="message">{{message}}</p>
+            <p class="message">{{message.message}}</p>
           </div>
         </div>
       </div>
@@ -273,8 +272,11 @@
         },
         methods: {
           sendMessage: function () {
-            socket.emit('newMessage', this.messageText, this.group);
-            this.messages.push(this.messageText);
+            socket.emit('newMessage', this.messageText, this.group, this.username);
+            this.messages.push({
+              username: this.username, 
+              message: this.messageText
+            });
             this.messageText = "";
           },
           joinGroup: function (groupName) {

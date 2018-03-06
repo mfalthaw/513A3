@@ -12,11 +12,14 @@ socketIo.on('connection', function(socket) {
   console.log('New user connected...');
 
   // newMessage
-  socket.on('newMessage', function (msg, group) {
+  socket.on('newMessage', function (msg, group, username) {
     // Grab message from client
     console.log('New Message: ' + msg);
     // Emit message to all users
-    socket.to(group).emit('clientMessage', msg);
+    socket.to(group).emit('clientMessage', {
+      username: username, 
+      message: msg,
+    });
   });
 
   // joinGroup
