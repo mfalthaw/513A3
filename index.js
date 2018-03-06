@@ -8,8 +8,17 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 });
 
+var usersList = [];
+
 socketIo.on('connection', function(socket) {
   console.log('New user connected...');
+
+  // loginUser
+  socket.on('loginUser', function (username) {
+    console.log('New user logged in: ' + username);
+    usersList.push(username);
+    socket.emit('usersList', usersList);
+  });
 
   // newMessage
   socket.on('newMessage', function (msg, group, username) {

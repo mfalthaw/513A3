@@ -220,17 +220,13 @@
     <div class='chatbox' v-if="showChat">
       <div class='chatbox__user-list'>
         <h1>Groups</h1>
-        <!-- <div v-bind:class='group == "Public" ? "chatbox__user--active" : "chatbox__user--busy"' v-on:click="joinGroup('Public')">           -->
-        <div v-bind:class='group == "Public" ? "chatbox__user--active" : "chatbox__user--busy"'>                    
-          <p>Public</p>
-        </div>
-        <!-- <div v-bind:class='group == "Private" ? "chatbox__user--active" : "chatbox__user--busy"' v-on:click="joinGroup('Private')"> -->
-        <div v-bind:class='group == "Private" ? "chatbox__user--active" : "chatbox__user--busy"'>                              
-          <p>Private</p>
+        <!-- <div v-bind:class='group == "Public" ? "chatbox__user--active" : "chatbox__user--busy"' v-on:click="joinGroup(g)">           -->
+        <div v-for="g in groups" v-bind:class='g == group ? "chatbox__user--active" : "chatbox__user--busy"'>                    
+          <p>{{g}}</p>
         </div>
         <h1>Users</h1>
-        <div class='chatbox__user--active'>          
-          <p>Moath</p>
+        <div v-for="user in users" class='chatbox__user--active'>          
+          <p>{{user}}</p>
         </div>
       </div>
       <div class="chatbox__messages">
@@ -262,12 +258,22 @@
           group:'',
           username:'',
           messageText:'',
-          messages:[],
           showChat: false,
+          messages:[],
+          groups:[
+            'Public',
+            'Private',
+            'Shared',
+          ],
+          users:[],
         },
         mounted: function () {
           socket.on('clientMessage', function(data) {
             this.messages.push(data);
+          }.bind(this));
+
+          socket.on('usersList', function(usersList) {
+            this.users = usersList;
           }.bind(this));
         },
         methods: {
@@ -290,6 +296,7 @@
           },
           loginUser: function () {
             if(this.username !== '') {
+              socket.emit('loginUser', this.username);
               this.joinGroup('Public');
               this.showChat = true;
             }
