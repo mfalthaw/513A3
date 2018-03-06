@@ -218,6 +218,9 @@
         </div>
       </div>
       <div class="chatbox__messages">
+        <div class="sys-msg" v-for="sysMessage in sysMessages">
+          <p>{{sysMessage}}</p>
+        </div>
         <div class="chatbox__messages__user-message" v-for="message in messages">
           <div class="chatbox__messages__user-message--ind-message">
             <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
@@ -248,6 +251,7 @@
           color: '',
           messageText: '',
           messages: [],
+          sysMessages: ['supppppp', '--------'],
           users: {},
           onlineUserCount: '',
         },
@@ -262,6 +266,10 @@
 
           socket.on('clientMessage', function(data) {
             this.messages.push(data);
+          }.bind(this));
+          
+          socket.on('sysMessage', function(data) {
+            this.sysMessages.push(data);
           }.bind(this));
 
           socket.on('usersList', function(usersList) {

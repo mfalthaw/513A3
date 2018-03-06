@@ -29,8 +29,9 @@ io.on('connection', function(socket) {
         // if name was taken
         username = getUsername();
         color = getColor();
-        var msg = usernameCookie + "'s name was taken.\nNew name is: " + username;
-        console.log(msg);
+        var msgToSend = usernameCookie + "'s name was taken.\nNew name is: " + username;
+        sendSysMsg(msgToSend, socket);
+        console.log(msgToSend);
       } else {
         username = usernameCookie;
         color = colorCookie;
@@ -39,7 +40,9 @@ io.on('connection', function(socket) {
       // new user
       username = getUsername();
       color = getColor();
-      console.log('New user created: ' + username);
+      var msgToSend = 'New user created: ' + username;
+      sendSysMsg(msgToSend, socket);
+      console.log(msgToSend);
     }
 
     // inform client
@@ -77,9 +80,13 @@ io.on('connection', function(socket) {
     var newName = msg.message.slice(6).trim();
     console.log(msg.username + ' asked to rename to: ' + newName);
     if(newName == '') {
-      console.log('Error: username can\'t be empty.');
+      var msgToSend = 'Error: username can\'t be empty.';
+      sendSysMsg(msgToSend, socket);
+      console.log(msgToSend);
     } else if(usersList[newName]) {
-      console.log('Error: username taken.');
+      var msgToSend = 'Error: username taken.';
+      sendSysMsg(msgToSend, socket);
+      console.log(msgToSend);
     } else {
       // update user list
       delete usersList[socket.username];
@@ -94,7 +101,10 @@ io.on('connection', function(socket) {
         color: socket.color,
       };
       socket.emit('initUser', user);
-      console.log('Username successfully changed to: ' + socket.username);
+      var msgToSend = 'Username successfully changed to: ' + socket.username;
+      sendSysMsg(msgToSend, socket);
+      sendSysMsg(msg.username + ' changed their name to ' + socket.username, io);
+      console.log(msgToSend);
     }
   });
 
@@ -116,13 +126,18 @@ io.on('connection', function(socket) {
         color: socket.color,
       };
       socket.emit('initUser', user);
-      console.log('Color successfully changed to: ' + socket.color);
+      var msgToSend = 'Color successfully changed to: ' + socket.color;
+      sendSysMsg(msgToSend, socket);
+      sendSysMsg(msg.username + ' changed their color to: ' + socket.color, io);
+      console.log(msgToSend);
     }
   });
 
   // disconnect
   socket.on('disconnect', function () {
-    console.log(socket.username + ' disconnected');
+    var msgToSend = socket.username + ' disconnected';
+    sendSysMsg(msgToSend, io);
+    console.log(msgToSend);
     delete usersList[socket.username];
     io.emit('onlineUsers', socket.conn.server.clientsCount)
     io.emit('usersList', usersList);
@@ -167,4 +182,12 @@ function showHistory(socket) {
   for(i in chatHistory) {
     socket.emit('clientMessage', chatHistory[i]);
   }
+}
+
+// send system message
+// use socket to send to caller only
+// use io to send to all users
+function sendSysMsg(msg, sock) {
+  sock.emit('sysMessage', msg);
+  console.log('sysMsg: ' + msg);
 }
