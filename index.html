@@ -263,9 +263,10 @@
         },
         mounted: function () {
           socket.on('initUser', function(data) {
-            console.log(data);
             this.username = data.username;
             this.color = data.color;
+            setCookie('username', data.username, 1);
+            setCookie('color', data.color, 1);
           }.bind(this));
 
           socket.on('clientMessage', function(data) {
@@ -301,6 +302,15 @@
         }
       });
       Vue.config.devtools = true;
+
+      // set cookie
+      // Source: https://www.w3schools.com/js/js_cookies.asp
+      function setCookie(param, value, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = param + "=" + value + ";" + expires + ";path=/";
+      }
     </script>
   </body>
 </html>
