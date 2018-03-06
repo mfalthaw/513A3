@@ -213,6 +213,11 @@
 <body>
   <div class='container' id='app'>
     <h1>{{group == '' ? 'Vue Messenger' : group}}</h1>
+    
+    <form v-if="!showChat" @submit.prevent="loginUser()">
+      <input type="text" v-model="username" placeholder="Enter Username">
+      <button type="submit">Login</button>
+    </form>
     <div class='chatbox' v-if="showChat">
       <div class='chatbox__user-list'>
         <h1>Groups</h1>
@@ -255,13 +260,13 @@
       new Vue({
         el: "#app",
         data: {
+          group:'',
+          username:'',
           messageText:'',
           messages:[],
-          group:'',
           showChat: false,
         },
         mounted: function () {
-          this.joinGroup('Public');
           socket.on('clientMessage', function(data) {
             this.messages.push(data);
           }.bind(this));
@@ -279,6 +284,12 @@
             }
             socket.emit('joinGroup', groupName);
             this.group = groupName;
+          },
+          loginUser: function () {
+            if(this.username !== '') {
+              this.joinGroup('Public');
+              this.showChat = true;
+            }
           },
         }
       });
