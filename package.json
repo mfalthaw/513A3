@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/mfalthaw/513A3#readme",
   "dependencies": {
-    "npm": "^5.7.1"
+    "express": "^4.16.2",
+    "node": "^9.7.0",
+    "npm": "^5.7.1",
+    "socket.io": "^2.0.4"
   }
 }
