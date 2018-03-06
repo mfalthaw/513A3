@@ -98,6 +98,26 @@ io.on('connection', function(socket) {
   });
 
   // change color
+  socket.on('changeColor', function (msg) {
+    var newColor = msg.message.slice(10).trim();
+    console.log(msg.username + ' asked to recolor to: ' + newColor);
+    // Source: https://goo.gl/9LSj5K
+    var validColor  = /([0-9A-F]{6}$)|([0-9A-F]{3}$)/i.test(newColor);
+    if(newColor == '') {
+      console.log('Error: color can\'t be empty.');
+    } else if(!validColor) {
+      console.log('Error: invalid color.');
+    } else {
+      socket.color = '#' + newColor;
+      // inform client
+      var user = {
+        username: socket.username,
+        color: socket.color,
+      };
+      socket.emit('initUser', user);
+      console.log('Color successfully changed to: ' + socket.color);
+    }
+  });
 
   // disconnect
   socket.on('disconnect', function () {
