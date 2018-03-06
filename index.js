@@ -26,14 +26,16 @@ io.on('connection', function(socket) {
   });
 
   // newMessage
-  socket.on('newMessage', function (msg, group, username) {
+  socket.on('newMessage', function (msg) {
     // Grab message from client
-    console.log(username + ' sent: ' + msg);
+    console.log(msg.username + ' sent: ' + msg.message);
+    var msgObj =  {
+      time: getTime(),
+      username: msg.username, 
+      message: msg.message,
+    };
     // Emit message to all users
-    socket.to(group).emit('clientMessage', {
-      username: username, 
-      message: msg,
-    });
+    io.emit('clientMessage', msgObj);
   });
 
   // disconnect
@@ -59,3 +61,7 @@ io.on('connection', function(socket) {
   });
 })
 
+// return current time
+function getTime() {
+  return new Date().toLocaleTimeString();
+}

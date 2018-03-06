@@ -18,7 +18,7 @@
   />
   <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
 
-  <style class="cp-pen-styles">
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -217,7 +217,6 @@
     <div class='chatbox' v-if="showChat">
       <div class='chatbox__user-list'>
         <h1>Groups</h1>
-        <!-- <div v-bind:class='group == "Public" ? "chatbox__user--active" : "chatbox__user--busy"' v-on:click="joinGroup(g)">           -->
         <div v-for="g in groups" v-bind:class='g == group ? "chatbox__user--active" : "chatbox__user--busy"'>                    
           <p>{{g}}</p>
         </div>
@@ -229,7 +228,7 @@
       <div class="chatbox__messages">
         <div class="chatbox__messages__user-message" v-for="message in messages">
           <div class="chatbox__messages__user-message--ind-message">
-            <p class="name">{{message.username}}</p>
+            <p class="name">{{message.username}} ({{message.time}})</p>
             <br/>
             <p class="message">{{message.message}}</p>
           </div>
@@ -241,9 +240,7 @@
     </div>
 
     <!-- imports -->
-    <!-- Vue -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
-    <!-- Socket.io -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
     <!-- Client -->
@@ -267,6 +264,7 @@
         },
         mounted: function () {
           socket.on('clientMessage', function(data) {
+            console.log('hereeee');
             this.messages.push(data);
           }.bind(this));
 
@@ -280,12 +278,12 @@
         },
         methods: {
           sendMessage: function () {
-            socket.emit('newMessage', this.messageText, this.group, this.username);
             var msg = {
               username: this.username, 
-              message: this.messageText
+              message: this.messageText,
+              group: this.group,
             };
-            this.messages.push(msg);
+            socket.emit('newMessage', msg);
             this.messageText = "";
           },
           joinGroup: function (groupName) {
