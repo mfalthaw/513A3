@@ -78,20 +78,6 @@ io.on('connection', function(socket) {
     io.emit('onlineUsers', socket.conn.server.clientsCount)
     io.emit('usersList', usersList);
   });
-
-  // joinGroup
-  socket.on('joinGroup', function (groupName, username) {
-    // Grab group name from client
-    console.log(username + ' joined  group: ' + groupName);
-    socket.join(groupName);
-  });
-
-  // exitGroup
-  socket.on('exitGroup', function (groupName, username) {
-    // Grab group name from client
-    console.log(username + ' left group: ' + groupName);
-    socket.leave(groupName);
-  });
 })
 
 // return current time

@@ -209,13 +209,9 @@
 
 <body>
   <div class='container' id='app'>
-    <h1>{{group == '' ? 'Vue Messenger' : group}}</h1>
+    <h1>{{username}}</h1>
     <div class='chatbox'>
       <div class='chatbox__user-list'>
-        <h1>Groups</h1>
-        <div v-for="g in groups" v-bind:class='g == group ? "chatbox__user--active" : "chatbox__user--busy"'>                    
-          <p>{{g}}</p>
-        </div>
         <h1>Users ({{onlineUserCount}})</h1>
         <div v-for="user in users" class='chatbox__user--active'>          
           <p>{{user}}</p>
@@ -242,22 +238,16 @@
     <!-- Client -->
     <script>
       var socket = io();
-      
+
       socket.emit('initUser', getCookie('username'), getCookie('color'));
 
       new Vue({
         el: "#app",
         data: {
-          group: '',
           username: '',
           color: '',
           messageText: '',
           messages: [],
-          groups:[
-            'Public',
-            'Private',
-            'Shared',
-          ],
           users: {},
           onlineUserCount: '',
         },
@@ -286,18 +276,9 @@
             var msg = {
               username: this.username, 
               message: this.messageText,
-              group: this.group,
             };
             socket.emit('newMessage', msg);
             this.messageText = "";
-          },
-          joinGroup: function (groupName) {
-            this.messages = [];
-            if(this.group !== '') {
-              socket.emit('exitGroup', this.group, this.username);
-            }
-            socket.emit('joinGroup', groupName, this.username);
-            this.group = groupName;
           },
         }
       });
