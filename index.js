@@ -38,8 +38,9 @@ io.on('connection', function(socket) {
 
   // disconnect
   socket.on('disconnect', function () {
-    io.emit('onlineUsers', socket.conn.server.clientsCount)
+    console.log(socket.username + ' disconnected');
     delete usersList[socket.username];
+    io.emit('onlineUsers', socket.conn.server.clientsCount)
     io.emit('usersList', usersList);
   });
 
