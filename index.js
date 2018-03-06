@@ -47,6 +47,7 @@ io.on('connection', function(socket) {
       color: color,
     };
     socket.emit('initUser', user);
+    showHistory(socket);
     
     // update user list
     socket.username = username;
@@ -124,4 +125,11 @@ function logMessage(msg) {
     chatHistory.shift();
   }
   chatHistory.push(msg);
+}
+
+// show chat history
+function showHistory(socket) {
+  for(i in chatHistory) {
+    socket.emit('clientMessage', chatHistory[i]);
+  }
 }
