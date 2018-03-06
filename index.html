@@ -224,7 +224,7 @@
         <div v-for="g in groups" v-bind:class='g == group ? "chatbox__user--active" : "chatbox__user--busy"'>                    
           <p>{{g}}</p>
         </div>
-        <h1>Users</h1>
+        <h1>Users ({{onlineUserCount}})</h1>
         <div v-for="user in users" class='chatbox__user--active'>          
           <p>{{user}}</p>
         </div>
@@ -255,17 +255,18 @@
       new Vue({
         el: "#app",
         data: {
-          group:'',
-          username:'',
-          messageText:'',
+          group: '',
+          username: '',
+          messageText: '',
           showChat: false,
-          messages:[],
+          messages: [],
           groups:[
             'Public',
             'Private',
             'Shared',
           ],
-          users:[],
+          users: {},
+          onlineUserCount: '',
         },
         mounted: function () {
           socket.on('clientMessage', function(data) {
@@ -274,6 +275,10 @@
 
           socket.on('usersList', function(usersList) {
             this.users = usersList;
+          }.bind(this));
+
+          socket.on('onlineUsers', function(onlineUserCount) {
+            this.onlineUserCount = onlineUserCount;
           }.bind(this));
         },
         methods: {
@@ -289,9 +294,9 @@
           joinGroup: function (groupName) {
             this.messages = [];
             if(this.group !== '') {
-              socket.emit('exitGroup', this.group);
+              socket.emit('exitGroup', this.group, this.username);
             }
-            socket.emit('joinGroup', groupName);
+            socket.emit('joinGroup', groupName, this.username);
             this.group = groupName;
           },
           loginUser: function () {

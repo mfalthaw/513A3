@@ -1,6 +1,6 @@
 var app = require('express')();
 var server = require('http').Server(app);
-var socketIo = require('socket.io')(server);
+var io = require('socket.io')(server);
 
 server.listen('8000');
 
@@ -8,17 +8,20 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 });
 
-var usersList = [];
+var usersList = {};
 
-socketIo.on('connection', function(socket) {
+io.on('connection', function(socket) {
   console.log('New user connected...');
 
   // loginUser
   socket.on('loginUser', function (username) {
-    console.log('New user logged in: ' + username);
-    usersList.push(username);
-    socket.emit('usersList', usersList);
+    console.log(username + ' logged in');
+    usersList[username] = username;
+    io.username = username;
+    io.emit('usersList', usersList);
+    io.sockets.emit('onlineUsers', socket.conn.server.clientsCount);
   });
+
 
   // newMessage
   socket.on('newMessage', function (msg, group, username) {
@@ -32,17 +35,24 @@ socketIo.on('connection', function(socket) {
     });
   });
 
+  // disconnect
+  socket.on('disconnect', function () {
+    io.sockets.emit('onlineUsers', socket.conn.server.clientsCount)
+    delete usersList[io.username];
+    io.emit('usersList', usersList);
+  });
+
   // joinGroup
-  socket.on('joinGroup', function (groupName) {
+  socket.on('joinGroup', function (groupName, username) {
     // Grab group name from client
-    console.log('User joined new group: ' + groupName);
+    console.log(username + ' joined  group: ' + groupName);
     socket.join(groupName);
   });
 
   // exitGroup
-  socket.on('exitGroup', function (groupName) {
+  socket.on('exitGroup', function (groupName, username) {
     // Grab group name from client
-    console.log('User left group: ' + groupName);
+    console.log(username + ' left group: ' + groupName);
     socket.leave(groupName);
   });
 })
