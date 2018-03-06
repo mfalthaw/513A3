@@ -242,7 +242,6 @@
     <!-- Client -->
     <script>
       var socket = io();
-
       socket.emit('initUser', getCookie('username'), getCookie('color'));
 
       new Vue({

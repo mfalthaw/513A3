@@ -87,6 +87,10 @@ io.on('connection', function(socket) {
       var msgToSend = 'Error: username taken.';
       sendSysMsg(msgToSend, socket);
       console.log(msgToSend);
+    } else if(newName.length > 16) {
+      var msgToSend = 'Error: username can\'t exceed 16 chars.';
+      sendSysMsg(msgToSend, socket);
+      console.log(msgToSend);
     } else {
       // update user list
       delete usersList[socket.username];
