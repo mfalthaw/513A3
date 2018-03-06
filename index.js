@@ -17,11 +17,10 @@ io.on('connection', function(socket) {
   socket.on('loginUser', function (username) {
     console.log(username + ' logged in');
     usersList[username] = username;
-    io.username = username;
+    socket.username = username;
     io.emit('usersList', usersList);
-    io.sockets.emit('onlineUsers', socket.conn.server.clientsCount);
+    io.emit('onlineUsers', socket.conn.server.clientsCount);
   });
-
 
   // newMessage
   socket.on('newMessage', function (msg, group, username) {
@@ -29,7 +28,6 @@ io.on('connection', function(socket) {
     console.log(username + ' sent: ' + msg);
     // Emit message to all users
     socket.to(group).emit('clientMessage', {
-      type: "text",
       username: username, 
       message: msg,
     });
@@ -37,8 +35,8 @@ io.on('connection', function(socket) {
 
   // disconnect
   socket.on('disconnect', function () {
-    io.sockets.emit('onlineUsers', socket.conn.server.clientsCount)
-    delete usersList[io.username];
+    io.emit('onlineUsers', socket.conn.server.clientsCount)
+    delete usersList[socket.username];
     io.emit('usersList', usersList);
   });
 
