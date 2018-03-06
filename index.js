@@ -28,7 +28,8 @@ io.on('connection', function(socket) {
       if(usersList[usernameCookie]) {
         // if name was taken
         username = getUsername();
-        console.log(usernameCookie + "'s name was taken.\nNew name is: " + username);
+        var msg = usernameCookie + "'s name was taken.\nNew name is: " + username;
+        console.log(msg);
       } else {
         username = usernameCookie;
       }
@@ -66,6 +67,7 @@ io.on('connection', function(socket) {
     };
     // Emit message to all users
     io.emit('clientMessage', msgObj);
+    logMessage(msgObj);
   });
 
   // disconnect
@@ -114,4 +116,12 @@ function getColor() {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
+}
+
+// log message
+function logMessage(msg) {
+  if(chatHistory.length >= chatHistorySize) {
+    chatHistory.shift();
+  }
+  chatHistory.push(msg);
 }
