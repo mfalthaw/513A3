@@ -23,10 +23,16 @@ io.on('connection', function(socket) {
   socket.on('initUser', function () {
    
     // new user
-    var username = getUsername();
-    usersList[username] = username;
-    socket.username = username;
-    console.log('New user created: ' + username);
+    var newUser = {
+      username: getUsername(),
+      color: getColor(),
+    };
+    usersList[newUser.username] = newUser.username;
+    socket.username = newUser.username;
+    console.log('New user created: ' + newUser.username);
+
+    // inform client
+    socket.emit('initUser', newUser);
 
     // update user list
     io.emit('usersList', usersList);
@@ -81,4 +87,15 @@ function getUsername() {
     temp = 'user' + Math.floor((Math.random() * 1000) + 1);
   }
   return temp;
+}
+
+// return random color
+// Source: https://stackoverflow.com/questions/1484506/random-color-generator
+function getColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }

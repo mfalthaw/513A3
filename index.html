@@ -244,12 +244,13 @@
       var socket = io();
 
       socket.emit('initUser');
-      
+
       new Vue({
         el: "#app",
         data: {
           group: '',
           username: '',
+          color: '',
           messageText: '',
           messages: [],
           groups:[
@@ -261,6 +262,12 @@
           onlineUserCount: '',
         },
         mounted: function () {
+          socket.on('initUser', function(data) {
+            console.log(data);
+            this.username = data.username;
+            this.color = data.color;
+          }.bind(this));
+
           socket.on('clientMessage', function(data) {
             this.messages.push(data);
           }.bind(this));
