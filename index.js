@@ -21,32 +21,36 @@ io.on('connection', function(socket) {
 
   // initUser
   socket.on('initUser', function (usernameCookie, colorCookie) {
-    // returning user
+    var username = '';
+    var color = '';
     if (usernameCookie && colorCookie) {
+      // returning user
       if(usersList[usernameCookie]) {
         // if name was taken
-        var newName = getUsername();
-        socket.username = newName;
-        console.log(usernameCookie + "'s name was taken.\nNew name is: " + newName);
+        username = getUsername();
+        console.log(usernameCookie + "'s name was taken.\nNew name is: " + username);
       } else {
-        socket.username = usernameCookie;
+        username = usernameCookie;
       }
-      socket.color = colorCookie;
-      usersList[socket.username] = socket.username;
+      color = colorCookie;
     } else {
       // new user
-      var newUser = {
-        username: getUsername(),
-        color: getColor(),
-      };
-      usersList[newUser.username] = newUser.username;
-      socket.username = newUser.username;
-      socket.color = newUser.color;
-      socket.emit('initUser', newUser);
-      console.log('New user created: ' + newUser.username);
+      username = getUsername();
+      color = getColor();
+      console.log('New user created: ' + username);
     }
 
+    // inform client
+    var user = {
+      username: username,
+      color: color,
+    };
+    socket.emit('initUser', user);
+    
     // update user list
+    socket.username = username;
+    socket.color = color;
+    usersList[username] = username;
     io.emit('usersList', usersList);
     io.emit('onlineUsers', socket.conn.server.clientsCount);
   });
