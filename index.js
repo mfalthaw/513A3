@@ -82,6 +82,7 @@ io.on('connection', function(socket) {
       console.log('Error: username taken.');
     } else {
       // update user list
+      delete usersList[socket.username];
       socket.username = newName;
       usersList[newName] = newName;
       io.emit('usersList', usersList);
