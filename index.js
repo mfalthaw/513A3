@@ -28,12 +28,13 @@ io.on('connection', function(socket) {
       if(usersList[usernameCookie]) {
         // if name was taken
         username = getUsername();
+        color = getColor();
         var msg = usernameCookie + "'s name was taken.\nNew name is: " + username;
         console.log(msg);
       } else {
         username = usernameCookie;
+        color = colorCookie;
       }
-      color = colorCookie;
     } else {
       // new user
       username = getUsername();
@@ -70,6 +71,33 @@ io.on('connection', function(socket) {
     io.emit('clientMessage', msgObj);
     logMessage(msgObj);
   });
+
+  // change username
+  socket.on('changeNick', function (msg) {
+    var newName = msg.message.slice(6).trim();
+    console.log(msg.username + ' asked to rename to: ' + newName);
+    if(newName == '') {
+      console.log('Error: username can\'t be empty.');
+    } else if(usersList[newName]) {
+      console.log('Error: username taken.');
+    } else {
+      // update user list
+      socket.username = newName;
+      usersList[newName] = newName;
+      io.emit('usersList', usersList);
+      io.emit('onlineUsers', socket.conn.server.clientsCount);
+
+      // inform client
+      var user = {
+        username: socket.username,
+        color: socket.color,
+      };
+      socket.emit('initUser', user);
+      console.log('Username successfully changed to: ' + socket.username);
+    }
+  });
+
+  // change color
 
   // disconnect
   socket.on('disconnect', function () {
