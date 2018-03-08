@@ -78,11 +78,18 @@ var socket = io();
 
   // parse message
   function parseMessage(msg, socket) {
-    cmd = msg.message.toLowerCase();
+    cmd = msg.message.toLowerCase().trim();
     if(cmd.startsWith('/nick ')) {
       socket.emit('changeNick', msg);
     } else if(cmd.startsWith('/nickcolor ')) {
       socket.emit('changeColor', msg);
+    } else if(cmd === 'help') {
+      var helpMsg = {
+        username: 'Helper!', 
+        color: 'Indigo',
+        message: 'Type /nick newName to change your username. Type /nickcolor to change your color.',
+      };
+      socket.emit('newMessage', helpMsg);
     } else {
       socket.emit('newMessage', msg);
     }
