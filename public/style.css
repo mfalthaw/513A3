@@ -98,7 +98,7 @@ body {
   border-left: 10px solid rgba(255, 255, 255, 0.2);
 } */
 
-.chatbox__messages__user-message {
+.user-message {
   width: 450px;
   overflow: auto;
 }
