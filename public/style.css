@@ -45,7 +45,7 @@ body {
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
 }
 
-.chatbox__messages {
+.message-box {
   overflow: hidden;
   position: absolute;
   bottom: 0;
@@ -64,7 +64,7 @@ body {
   overflow: auto;
 }
 
-.chatbox__messages:nth-of-type(odd) .their-message {
+.message-box:nth-of-type(odd) .their-message {
   float: left;
 }
 
@@ -72,7 +72,7 @@ body {
   float: right;
 }
 
-/* .chatbox__messages:nth-of-type(odd) .their-message:after {
+/* .message-box:nth-of-type(odd) .their-message:after {
   content: '';
   position: absolute;
   margin: -1.5em -17.06em;
@@ -83,11 +83,11 @@ body {
   border-right: 10px solid rgba(255, 255, 255, 0.2);
 } */
 
-/* .chatbox__messages:nth-of-type(even) .their-message {
+/* .message-box:nth-of-type(even) .their-message {
   float: right;
 } */
 
-/* .chatbox__messages:nth-of-type(even) .their-message:after {
+/* .message-box:nth-of-type(even) .their-message:after {
   content: '';
   position: absolute;
   margin: -1.5em 1.87em;
@@ -149,24 +149,24 @@ body {
 }
 
 .chatbox__user,
-.chatbox__user--active,
-.chatbox__user--busy,
-.chatbox__user--away {
+.user-active,
+.user-busy,
+.user-away {
   width: 0.5em;
   height: 0.5em;
   border-radius: 100%;
   margin: 1em 0.7em;
 }
 
-.chatbox__user--active {
+.user-active {
   background: rgba(23, 190, 187, 0.8);
 }
 
-.chatbox__user--busy {
+.user-busy {
   background: rgba(252, 100, 113, 0.8);
 }
 
-.chatbox__user--away {
+.user-away {
   background: rgba(255, 253, 130, 0.8);
 }
 

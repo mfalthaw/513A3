@@ -29,14 +29,14 @@
       <div class='user-list-container'> 
         <h1>Users ({{onlineUserCount}})</h1>
         <div class="user-list">
-          <div v-for="user in users" class='chatbox__user--active'>
+          <div v-for="user in users" class='user-active'>
             <p>{{user}}</p>      
           </div>
         </div>
       </div>
 
      <div class="message-display">
-        <div class="chatbox__messages">
+        <div class="message-box">
           <div class="user-message" v-for="message in messages">
             <div class="my-message" v-if="message.username === username">
               <p class="name" id='msg-username' v-bind:style="{color: message.color}">{{message.username}} ({{message.time}})</p>
