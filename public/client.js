@@ -26,7 +26,7 @@ var socket = io();
       }.bind(this));
       
       socket.on('sysMessage', function(data) {
-        this.sysMessages.push(data);
+        this.messages.push(data);
       }.bind(this));
 
       socket.on('usersList', function(usersList) {

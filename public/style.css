@@ -63,8 +63,11 @@ body {
 }
 
 .chatbox__messages:nth-of-type(odd) .chatbox__messages__user-message--ind-message {
-  /* float: right; */
   float: left;
+}
+
+.sender-message {
+  float: right;
 }
 
 /* .chatbox__messages:nth-of-type(odd) .chatbox__messages__user-message--ind-message:after {
@@ -78,9 +81,9 @@ body {
   border-right: 10px solid rgba(255, 255, 255, 0.2);
 } */
 
-.chatbox__messages:nth-of-type(even) .chatbox__messages__user-message--ind-message {
+/* .chatbox__messages:nth-of-type(even) .chatbox__messages__user-message--ind-message {
   float: right;
-}
+} */
 
 /* .chatbox__messages:nth-of-type(even) .chatbox__messages__user-message--ind-message:after {
   content: '';
@@ -98,7 +101,8 @@ body {
   overflow: auto;
 }
 
-.chatbox__messages__user-message--ind-message {
+.chatbox__messages__user-message--ind-message,
+.sender-message {
   background: rgba(255, 255, 255, 0.2);
   padding: 1em 0;
   height: auto;
@@ -108,12 +112,14 @@ body {
   overflow: auto;
 }
 
-.chatbox__messages__user-message--ind-message>p.name {
+.chatbox__messages__user-message--ind-message>p.name,
+.sender-message>p.name {
   color: #FFF;
   font-size: 1em;
 }
 
-.chatbox__messages__user-message--ind-message>p.message {
+.chatbox__messages__user-message--ind-message>p.message,
+.sender-message>p.message {
   color: #FFF;
   font-size: 0.7em;
   margin: 0 2.8em;

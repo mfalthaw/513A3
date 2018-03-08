@@ -57,7 +57,7 @@ io.on('connection', function(socket) {
     socket.emit('initUser', user);
     showHistory(socket);
     var msgToSend = username + ' connected';
-    sendSysMsg(msgToSend, io);
+    // sendSysMsg(msgToSend, io);
     console.log(msgToSend);
     
     // update user list
@@ -204,6 +204,6 @@ function sendSysMsg(msg, sock) {
     username: systemName, 
     message: msg,
   };
-  sock.emit('clientMessage', msgObj);
+  sock.emit('sysMessage', msgObj);
   console.log('sysMsg: ' + msg);
 }

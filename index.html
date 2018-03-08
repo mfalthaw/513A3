@@ -38,11 +38,21 @@
      <div class="message-display">
         <div class="chatbox__messages">
           <div class="chatbox__messages__user-message" v-for="message in messages">
-            <div class="chatbox__messages__user-message--ind-message">
+            
+            <div class="sender-message"
+            v-if="message.username === username">
               <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
               <br/>
               <p class="message">{{message.message}}</p>
             </div>
+            
+            <div class="chatbox__messages__user-message--ind-message"
+            v-else>
+              <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
+              <br/>
+              <p class="message">{{message.message}}</p>
+            </div>
+
           </div>
         </div>
      </div>
