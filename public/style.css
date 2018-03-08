@@ -128,7 +128,7 @@ body {
   /* margin: 0 2.8em; */
 }
 
-.chatbox__user-list {
+.user-list-container {
   background: rgba(255, 255, 255, 0.1);
   width: 25%;
   height: 100%;
@@ -137,7 +137,7 @@ body {
   border-bottom-right-radius: 0.2em;
 }
 
-.chatbox__user-list h1,
+.user-list-container h1,
 .chatbox__log h1 {
   background: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.9);
