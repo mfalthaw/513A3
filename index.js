@@ -103,6 +103,21 @@ io.on('connection', function(socket) {
     logMessage(msgObj);
   });
 
+  // help request
+  socket.on('help', function() {
+    console.log(socket.username + ' asked for help');
+    var helpMsg = {
+      time: getTime(),
+      username: 'Helper!', 
+      color: 'Indigo',
+      message: 'Type /nick newName to change your username. \
+      Type /nickcolor #hexcode or /nickcolor colorName to change your color.',
+    };
+    // Emit help to requesting user only
+    socket.emit('clientMessage', helpMsg);
+    logMessage(helpMsg);
+  });
+
   // change username
   socket.on('changeNick', function (msg) {
     var newName = msg.message.slice(6).trim();

@@ -86,13 +86,7 @@ var socket = io();
     } else if(cmd.startsWith('/nickcolor ')) {
       socket.emit('changeColor', msg);
     } else if(cmd === 'help') {
-      var helpMsg = {
-        username: 'Helper!', 
-        color: 'Indigo',
-        message: 'Type /nick newName to change your username. \
-        Type /nickcolor #hexcode or /nickcolor colorName to change your color.',
-      };
-      socket.emit('newMessage', helpMsg);
+      socket.emit('help');
     } else {
       socket.emit('newMessage', msg);
     }
