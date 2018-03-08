@@ -40,6 +40,7 @@ var socket = io();
     methods: {
       sendMessage: function () {
         var msg = {
+          system: false,
           username: this.username, 
           message: this.messageText,
         };

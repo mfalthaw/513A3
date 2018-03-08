@@ -25,32 +25,34 @@
   <div class='container' id='app'>
     <h1 id='username'>{{username}}</h1>
     <div class='chatbox'>
-      <div class='chatbox__user-list'>
-        
+     
+      <div class='chatbox__user-list'> 
         <h1>Users ({{onlineUserCount}})</h1>
         <div class="user-list">
           <div v-for="user in users" class='chatbox__user--active'>
             <p>{{user}}</p>      
           </div>
         </div>
-        
-        <h1>Log</h1>   
-        <div v-for="sysMessage in sysMessages" class='sys-log'>          
-          <p>{{sysMessage}}</p>
-        </div>
-        
+        <h1>Log</h1>
+        <div class="log">
+          <div v-for="sysMessage in sysMessages">          
+            <p>{{sysMessage}}</p>
+          </div>
+        </div>   
       </div>
+
      <div class="message-display">
         <div class="chatbox__messages">
-            <div class="chatbox__messages__user-message" v-for="message in messages">
-              <div class="chatbox__messages__user-message--ind-message">
-                <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
-                <br/>
-                <p class="message">{{message.message}}</p>
-              </div>
+          <div class="chatbox__messages__user-message" v-for="message in messages">
+            <div class="chatbox__messages__user-message--ind-message">
+              <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
+              <br/>
+              <p class="message">{{message.message}}</p>
             </div>
           </div>
+        </div>
      </div>
+     
       <form @submit.prevent="sendMessage()">
         <input type="text" v-model="messageText" placeholder="Type Message">
       </form>
