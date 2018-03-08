@@ -59,7 +59,6 @@ body {
 }
 
 .user-list {
-  max-height: 33%;
   overflow: auto;
 }
 

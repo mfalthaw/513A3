@@ -14,10 +14,11 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 });
 
-var chatHistorySize = 250;
 
-var usersList = {};
-var chatHistory = [];
+const chatHistorySize = 250;
+const usersList = {};
+const chatHistory = [];
+const systemName = 'Console';
 
 io.on('connection', function(socket) {
   console.log('New user connected');
@@ -55,6 +56,9 @@ io.on('connection', function(socket) {
     };
     socket.emit('initUser', user);
     showHistory(socket);
+    var msgToSend = username + ' connected';
+    sendSysMsg(msgToSend, io);
+    console.log(msgToSend);
     
     // update user list
     socket.username = username;
@@ -108,9 +112,9 @@ io.on('connection', function(socket) {
         color: socket.color,
       };
       socket.emit('initUser', user);
-      var msgToSend = 'Username successfully changed to: ' + socket.username;
+      var msgToSend = 'Username changed to: ' + socket.username;
       sendSysMsg(msgToSend, socket);
-      sendSysMsg(msg.username + ' changed their name to ' + socket.username, io);
+      sendSysMsg(msg.username + ' renamed to ' + socket.username, io);
       console.log(msgToSend);
     }
   });
@@ -195,6 +199,11 @@ function showHistory(socket) {
 // use socket to send to caller only
 // use io to send to all users
 function sendSysMsg(msg, sock) {
-  sock.emit('sysMessage', msg);
+  var msgObj =  {
+    time: getTime(),
+    username: systemName, 
+    message: msg,
+  };
+  sock.emit('clientMessage', msgObj);
   console.log('sysMsg: ' + msg);
 }
