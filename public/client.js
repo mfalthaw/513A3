@@ -39,8 +39,8 @@ var socket = io();
     methods: {
       sendMessage: function () {
         var msg = {
-          system: false,
           username: this.username, 
+          color: this.color,
           message: this.messageText,
         };
         parseMessage(msg, socket);

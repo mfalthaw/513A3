@@ -18,7 +18,7 @@
   />
   <link href='https://fonts.googleapis.com/css?family=Nunito:400,300,700' rel='stylesheet' type='text/css'>
   
-  <link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -41,14 +41,14 @@
             
             <div class="sender-message"
             v-if="message.username === username">
-              <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
+              <p class="name" id='msg-username' v-bind:style="{color: message.color}">{{message.username}} ({{message.time}})</p>
               <br/>
               <p class="message">{{message.message}}</p>
             </div>
             
             <div class="chatbox__messages__user-message--ind-message"
             v-else>
-              <p class="name" id='msg-username'>{{message.username}} ({{message.time}})</p>
+              <p class="name" id='msg-username' v-bind:style="{color: message.color}">{{message.username}} ({{message.time}})</p>
               <br/>
               <p class="message">{{message.message}}</p>
             </div>

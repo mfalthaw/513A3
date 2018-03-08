@@ -53,12 +53,14 @@ body {
 
 .message-display {
   width: 75%;
-  height: 90%;
+  height: 92.5%;
   overflow: auto;
   position: relative;
 }
 
 .user-list {
+  height: 92.5%;
+  width: 100vh;
   overflow: auto;
 }
 
@@ -108,7 +110,7 @@ body {
   height: auto;
   width: 65%;
   border-radius: 5px;
-  margin: 2em 1em;
+  margin: 1em 1em;
   overflow: auto;
 }
 
@@ -116,13 +118,14 @@ body {
 .sender-message>p.name {
   color: #FFF;
   font-size: 1em;
+  font-weight: bold;
 }
 
 .chatbox__messages__user-message--ind-message>p.message,
 .sender-message>p.message {
   color: #FFF;
-  font-size: 0.7em;
-  margin: 0 2.8em;
+  font-size: 1em;
+  /* margin: 0 2.8em; */
 }
 
 .chatbox__user-list {
@@ -188,7 +191,7 @@ body {
   left: 0;
   border: none;
   width: 75%;
-  height: 10%;
+  height: 7.5%;
   padding: 1.2em;
   outline: none;
   color: rgba(255, 255, 255, 0.9);
