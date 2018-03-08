@@ -68,7 +68,7 @@ body {
   float: left;
 }
 
-.sender-message {
+.my-message {
   float: right;
 }
 
@@ -104,7 +104,7 @@ body {
 }
 
 .their-message,
-.sender-message {
+.my-message {
   background: rgba(255, 255, 255, 0.2);
   padding: 1em 0;
   height: auto;
@@ -115,14 +115,14 @@ body {
 }
 
 .their-message>p.name,
-.sender-message>p.name {
+.my-message>p.name {
   color: #FFF;
   font-size: 1em;
   font-weight: bold;
 }
 
 .their-message>p.message,
-.sender-message>p.message {
+.my-message>p.message {
   color: #FFF;
   font-size: 1em;
   /* margin: 0 2.8em; */

@@ -39,7 +39,7 @@
         <div class="chatbox__messages">
           <div class="chatbox__messages__user-message" v-for="message in messages">
             
-            <div class="sender-message"
+            <div class="my-message"
             v-if="message.username === username">
               <p class="name" id='msg-username' v-bind:style="{color: message.color}">{{message.username}} ({{message.time}})</p>
               <br/>
