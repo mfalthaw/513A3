@@ -15,7 +15,6 @@ var socket = io();
       socket.on('initUser', function(data) {
         this.username = data.username;
         this.color = data.color;
-        document.getElementById("username").style.color = this.color;
         setCookie('username', data.username, 1);
         setCookie('color', data.color, 1);
       }.bind(this));
