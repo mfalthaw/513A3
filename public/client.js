@@ -87,7 +87,8 @@ var socket = io();
       var helpMsg = {
         username: 'Helper!', 
         color: 'Indigo',
-        message: 'Type /nick newName to change your username. Type /nickcolor to change your color.',
+        message: 'Type /nick newName to change your username. \
+        Type /nickcolor #hexcode or /nickcolor colorName to change your color.',
       };
       socket.emit('newMessage', helpMsg);
     } else {
