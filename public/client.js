@@ -79,7 +79,9 @@ var socket = io();
   // parse message
   function parseMessage(msg, socket) {
     cmd = msg.message.toLowerCase().trim();
-    if(cmd.startsWith('/nick ')) {
+    if(cmd === '') {
+      return;
+    } else if(cmd.startsWith('/nick ')) {
       socket.emit('changeNick', msg);
     } else if(cmd.startsWith('/nickcolor ')) {
       socket.emit('changeColor', msg);
