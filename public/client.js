@@ -8,7 +8,6 @@ var socket = io();
       color: '',
       messageText: '',
       messages: [],
-      sysMessages: [],
       users: {},
       onlineUserCount: '',
     },

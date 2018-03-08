@@ -74,7 +74,7 @@ io.on('connection', function(socket) {
     console.log(msg.username + ' sent: ' + msg.message);
     var msgObj =  {
       time: getTime(),
-      username: msg.username, 
+      username: msg.username,
       message: msg.message,
     };
     // Emit message to all users
