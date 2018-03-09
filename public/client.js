@@ -35,6 +35,9 @@ var socket = io();
         this.onlineUserCount = onlineUserCount;
       }.bind(this));
     },
+    updated: function() {
+      $('#message-display').scrollTop($('#message-display')[0].scrollHeight);
+    },
     methods: {
       sendMessage: function () {
         var msg = {
