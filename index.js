@@ -163,9 +163,13 @@ io.on('connection', function(socket) {
     // Source: https://goo.gl/9LSj5K
     var validColor  = colors.includes(newColor) || /([0-9A-F]{6}$)|([0-9A-F]{3}$)/i.test(newColor);
     if(newColor == '') {
-      console.log('Error: color can\'t be empty.');
+      var msgToSend = 'Error: color can\'t be empty.';
+      sendSysMsg(msgToSend, socket);
+      console.log(msgToSend);
     } else if(!validColor) {
-      console.log('Error: invalid color.');
+      var msgToSend = 'Error: invalid color.';
+      sendSysMsg(msgToSend, socket);
+      console.log(msgToSend);
     } else {
       socket.color = newColor;
       // inform client
