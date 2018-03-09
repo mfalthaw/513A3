@@ -9,8 +9,9 @@ Source: https://bootsnipp.com/snippets/mMr2l */
 
 html,
 body {
-  background: -webkit-linear-gradient(330deg, #000, #f0a6ca);
-  background: linear-gradient(120deg, #000, #f0a6ca);
+  /* background: -webkit-linear-gradient(330deg, #000, #f0a6ca);
+  background: linear-gradient(120deg, #000, #f0a6ca); */
+  background: #191919;
   overflow: hidden;
 }
 
