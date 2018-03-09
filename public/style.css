@@ -60,13 +60,19 @@ body {
   bottom: 0;
 }
 
+.user-message {
+  /* width: 450px; */
+  width: 100%;
+  overflow: auto;
+}
+
 .user-list {
   height: 92.5%;
   width: 100vh;
   overflow: auto;
 }
 
-.messages:nth-of-type(odd) .their-message {
+.their-message {
   float: left;
 }
 
@@ -99,12 +105,6 @@ body {
   border-bottom: 10px solid transparent;
   border-left: 10px solid rgba(255, 255, 255, 0.2);
 } */
-
-.user-message {
-  /* width: 450px; */
-  width: 100%;
-  overflow: auto;
-}
 
 .their-message,
 .my-message {

@@ -23,8 +23,8 @@
       </div>
     
       <div class="message-display">
-        <ul class="messages">
-          <li class="user-message" v-for="message in messages">
+        <div class="messages">
+          <div class="user-message" v-for="message in messages">
             <div class="my-message" v-if="message.username === username">
               <p class="name" id='msg-username' v-bind:style="{color: message.color}">{{message.username}} ({{message.time}})</p>
               <br/>
@@ -35,8 +35,8 @@
               <br/>
               <p class="message">{{message.message}}</p>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
      </div>
      
       <form @submit.prevent="sendMessage()">
