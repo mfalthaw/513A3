@@ -38,7 +38,8 @@ body {
 
 .chatbox {
   background: rgba(255, 255, 255, 0.05);
-  width: 600px;
+  /* width: 600px; */
+  width: 75%;
   height: 75%;
   border-radius: 0.2em;
   position: relative;
@@ -53,6 +54,7 @@ body {
 }
 
 .messages {
+  width: 100%;
   overflow: auto;
   position: absolute;
   bottom: 0;
@@ -99,7 +101,8 @@ body {
 } */
 
 .user-message {
-  width: 450px;
+  /* width: 450px; */
+  width: 100%;
   overflow: auto;
 }
 
