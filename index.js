@@ -193,8 +193,11 @@ function isValidColor(newColor) {
   var valid = false;
   if (newColor.startsWith('#')) {
     valid = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(newColor);
+  } else if (colors.includes(newColor)) {
+    valid = true;
   } else {
-    valid = colors.includes(newColor) || /([0-9A-F]{6}$)|([0-9A-F]{3}$)/i.test(newColor);
+    newColor = '#' + newColor;
+    valid = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(newColor);
   }
   return valid;
 }
