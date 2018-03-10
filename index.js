@@ -167,7 +167,7 @@ io.on('connection', function(socket) {
 
   // disconnect
   socket.on('disconnect', function () {
-    if (socket.username !== undefined) {
+    if (socket.username !== 'undefined') {
       logAndNotify(socket.username + ' disconnected', io);
     }
     delete usersList[socket.username];
