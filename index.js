@@ -2,7 +2,6 @@ const express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-const uuid = require('uuid/v4');
 
 var PORT = '8000';
 server.listen(PORT, function() {
@@ -45,7 +44,6 @@ io.on('connection', function(socket) {
 
   // initUser
   socket.on('initUser', function (usernameCookie, colorCookie) {
-    var id = '';
     var username = '';
     var color = '';
     if (usernameCookie && colorCookie) {
@@ -179,15 +177,6 @@ io.on('connection', function(socket) {
 // return current time
 function getTime() {
   return new Date().toLocaleTimeString();
-}
-
-// return random id
-function getUuid() {
-  var temp = uuid();
-  while (usersList[temp]) {
-    temp = uuid();
-  }
-  return temp;
 }
 
 // return random username
