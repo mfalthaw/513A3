@@ -88,7 +88,7 @@ var socket = io();
       socket.emit('changeNick', msg);
     } else if(cmd.startsWith('/nickcolor ')) {
       socket.emit('changeColor', msg);
-    } else if(cmd === 'help') {
+    } else if(cmd === '/help') {
       socket.emit('help');
     } else {
       socket.emit('newMessage', msg);
