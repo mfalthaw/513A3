@@ -84,32 +84,6 @@ body {
   float: right;
 }
 
-/* .messages:nth-of-type(odd) .their-message:after {
-  content: '';
-  position: absolute;
-  margin: -1.5em -17.06em;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid rgba(255, 255, 255, 0.2);
-} */
-
-/* .messages:nth-of-type(even) .their-message {
-  float: right;
-} */
-
-/* .messages:nth-of-type(even) .their-message:after {
-  content: '';
-  position: absolute;
-  margin: -1.5em 1.87em;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid rgba(255, 255, 255, 0.2);
-} */
-
 .their-message,
 .my-message {
   background: rgba(255, 255, 255, 0.2);
@@ -132,7 +106,6 @@ body {
 .my-message>p.message {
   color: #FFF;
   font-size: 1em;
-  /* margin: 0 2.8em; */
 }
 
 .user-list-container {
@@ -156,9 +129,7 @@ body {
 }
 
 .chatbox__user,
-.user-active,
-.user-busy,
-.user-away {
+.user-active {
   width: 0.5em;
   height: 0.5em;
   border-radius: 100%;
@@ -167,14 +138,6 @@ body {
 
 .user-active {
   background: rgba(23, 190, 187, 0.8);
-}
-
-.user-busy {
-  background: rgba(252, 100, 113, 0.8);
-}
-
-.user-away {
-  background: rgba(255, 253, 130, 0.8);
 }
 
 .chatbox p {
